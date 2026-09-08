@@ -30,8 +30,6 @@ jobs:
     # uses: is not honoured, unlike the step-level case.
     uses: ./.github/workflows/ci.yml  # zizmor: ignore[self-repository]
     # Same-repo reusable workflow runs from caller commit (on tag push = tag commit)
-    secrets:
-      NPM_REGISTRY_TOKEN: ${{ secrets.NPM_REGISTRY_TOKEN }}
 
   e2e-tests:
     needs: ci  # E2E tests run after CI passes
@@ -61,8 +59,6 @@ jobs:
     # Proceed when CI passed; allow release even if e2e-tests failed (e.g. Gitea unconfigured)
     if: always() && !cancelled() && needs.ci.result == 'success'
     runs-on: ubuntu-latest
-    env:
-      NPM_REGISTRY_TOKEN: ${{ secrets.NPM_REGISTRY_TOKEN }}
     steps:
       - name: Checkout code
         # zizmor: ignore[artipacked] — the floating-tags step later in this job
@@ -91,18 +87,9 @@ jobs:
           # setup-node enables package-manager caching by default; a cache
           # restored from a PR run must not reach a publishing job.
           package-manager-cache: false
-          # This job installs git-platform-detector from the private Gitea registry, which
-          # returns 401 without a token. It previously had no registry configuration at all
-          # and only succeeded because `cache: 'npm'` happened to restore the tarball from
-          # an earlier run -- authentication by cache warmth. registry-url makes setup-node
-          # write the auth .npmrc to RUNNER_TEMP, never into the workspace.
-          registry-url: 'https://git.ravenwolf.org/api/packages/liquidlogiclabs/npm/'
-          scope: '@liquidlogiclabs'
 
       - name: Install dependencies
         run: npm ci
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_REGISTRY_TOKEN }}
 
       - name: Build and package action
         run: npm run package

@@ -1,5 +1,5 @@
 import * as core from '@actions/core';
-import { detectPlatform } from 'git-platform-detector';
+import { detectPlatform } from '@liquidlogiclabs/git-platform-detector';
 import { Platform } from '../types';
 
 /**

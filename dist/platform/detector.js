@@ -35,7 +35,7 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PlatformDetector = void 0;
 const core = __importStar(require("@actions/core"));
-const git_platform_detector_1 = require("git-platform-detector");
+const git_platform_detector_1 = require("@liquidlogiclabs/git-platform-detector");
 /**
  * Detects the platform from various sources
  */
