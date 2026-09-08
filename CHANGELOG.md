@@ -1,3 +1,9 @@
+## [2.0.9](https://github.com/LiquidLogicLabs/git-action-release/compare/v2.0.8...v2.0.9) (2026-09-08)
+
+
+### Features
+
+* consume @liquidlogiclabs/git-platform-detector from npmjs ([964b39e](https://github.com/LiquidLogicLabs/git-action-release/commit/964b39e0203579904f120933c86700984fe05276))
 ## [2.0.8](https://github.com/LiquidLogicLabs/git-action-release/compare/v2.0.7...v2.0.8) (2026-09-04)
 
 
